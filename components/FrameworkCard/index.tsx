@@ -20,6 +20,14 @@ const Content = Styled.span`
   font-size: 14px;
 `;
 
+const ContentWrapper = Styled.div`
+  margin-top: 15px;
+`;
+
+const ContentRow = Styled.div`
+  margin-bottom: 3px;
+`;
+
 const CardContainer = Styled.div`
   width: 200px;
   height: 150px;
@@ -84,18 +92,6 @@ const OwnerName = Styled.div`
   font-size: 14px;
 `;
 
-const StarCount = Styled.div`
-  margin: 8px 0;
-`;
-
-const ForkCount = Styled.div`
-  margin: 8px 0;
-`;
-
-const CreatedAt = Styled.div`
-  margin: 8px 0;
-`;
-
 const SideBar = Styled.div<{ color: string }>`
   position: absolute;
   right: 0;
@@ -130,18 +126,20 @@ const FrameworkCard: FC<IProps> = ({
       {rank <= 2 && <Medal rank={rank}>{rank + 1}</Medal>}
       <RepoName>{repoName}</RepoName>
       <OwnerName>Created By {ownerName}</OwnerName>
-      <StarCount>
-        <StyledImg src='/star.svg' />
-        <Content>{starCount}</Content>
-      </StarCount>
-      <ForkCount>
-        <StyledImg src='/fork.svg' />
-        <Content>{forkCount}</Content>
-      </ForkCount>
-      <CreatedAt>
-        <StyledImg src='/date.svg' />
-        <Content>{createdAt.split('T')[0]}</Content>
-      </CreatedAt>
+      <ContentWrapper>
+        <ContentRow>
+          <StyledImg src='/star.svg' />
+          <Content>{starCount}</Content>
+        </ContentRow>
+        <ContentRow>
+          <StyledImg src='/fork.svg' />
+          <Content>{forkCount}</Content>
+        </ContentRow>
+        <ContentRow>
+          <StyledImg src='/date.svg' />
+          <Content>{createdAt.split('T')[0]}</Content>
+        </ContentRow>
+      </ContentWrapper>
       <SideBar color={FRAMEWORKS_COLOR_MAPPER[repoName] ?? 'white'} />
     </CardContainer>
   );
