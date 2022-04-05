@@ -7,6 +7,18 @@ import {
   MainAlignment,
   CrossAlignment,
 } from '@/utils/flexbox';
+import { FRAMEWORKS_COLOR_MAPPER } from '@/constants/frameworks';
+
+const StyledImg = Styled.img`
+  width: 14px;
+  height: 14px;
+`;
+
+const Content = Styled.span`
+  margin-left: 5px;
+  color: ${props => props.theme.colors.BLACK_065};
+  font-size: 14px;
+`;
 
 const CardContainer = Styled.div`
   width: 200px;
@@ -17,6 +29,8 @@ const CardContainer = Styled.div`
   transition: transform 0.3s;
   position: relative;
   cursor: pointer;
+  background: white;
+  padding: 15px 0 15px 15px;
 
   &:hover {
     transform: scale(1.1);
@@ -60,15 +74,75 @@ const Medal = Styled.div<{ rank: Number }>`
     `}
 `;
 
+const RepoName = Styled.div`
+  font-size: 20px;
+  color: ${props => props.theme.colors.TITLE_SECONDARY_BLUE};
+`;
+
+const OwnerName = Styled.div`
+  color: ${props => props.theme.colors.BLACK_045};
+  font-size: 14px;
+`;
+
+const StarCount = Styled.div`
+  margin: 8px 0;
+`;
+
+const ForkCount = Styled.div`
+  margin: 8px 0;
+`;
+
+const CreatedAt = Styled.div`
+  margin: 8px 0;
+`;
+
+const SideBar = Styled.div<{ color: string }>`
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 15px;
+  height: 100%;
+  background-color: ${props => props.color};
+  border-radius: 0 8px 8px 0;
+`;
+
 interface IProps {
   onCardClick: () => void;
   rank: number;
+  repoName: string;
+  ownerName: string;
+  starCount: number;
+  forkCount: number;
+  createdAt: string;
 }
 
-const FrameworkCard: FC<IProps> = ({ onCardClick, rank }) => {
+const FrameworkCard: FC<IProps> = ({
+  onCardClick,
+  rank,
+  repoName,
+  ownerName,
+  starCount,
+  forkCount,
+  createdAt,
+}) => {
   return (
     <CardContainer onClick={onCardClick}>
       {rank <= 2 && <Medal rank={rank}>{rank + 1}</Medal>}
+      <RepoName>{repoName}</RepoName>
+      <OwnerName>Created By {ownerName}</OwnerName>
+      <StarCount>
+        <StyledImg src='/star.svg' />
+        <Content>{starCount}</Content>
+      </StarCount>
+      <ForkCount>
+        <StyledImg src='/fork.svg' />
+        <Content>{forkCount}</Content>
+      </ForkCount>
+      <CreatedAt>
+        <StyledImg src='/date.svg' />
+        <Content>{createdAt.split('T')[0]}</Content>
+      </CreatedAt>
+      <SideBar color={FRAMEWORKS_COLOR_MAPPER[repoName] ?? 'white'} />
     </CardContainer>
   );
 };

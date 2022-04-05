@@ -2,40 +2,40 @@ import { gql } from '@apollo/client';
 
 import { FRAMEWORK_LIST } from '@/constants/frameworks';
 
-export const REPOSITORY = gql`
-  query getRepository($owner: String!, $name: String!) {
-    repository(owner: $owner, name: $name) {
-      id
-      name
-      nameWithOwner
-      description
-      url
-      createdAt
-      diskUsage
-      forkCount
-      homepageUrl
-      openGraphImageUrl
-      updatedAt
-      stargazerCount
-      licenseInfo {
-        name
-      }
-      ...language
-    }
-  }
+// export const REPOSITORY = gql`
+//   query getRepository($owner: String!, $name: String!) {
+//     repository(owner: $owner, name: $name) {
+//       id
+//       name
+//       nameWithOwner
+//       description
+//       url
+//       createdAt
+//       diskUsage
+//       forkCount
+//       homepageUrl
+//       openGraphImageUrl
+//       updatedAt
+//       stargazerCount
+//       licenseInfo {
+//         name
+//       }
+//       ...language
+//     }
+//   }
 
-  fragment language on Repository {
-    languages(last: 100, orderBy: { field: SIZE, direction: DESC }) {
-      nodes {
-        color
-        id
-        name
-      }
-      totalCount
-      totalSize
-    }
-  }
-`;
+//   fragment language on Repository {
+//     languages(last: 100, orderBy: { field: SIZE, direction: DESC }) {
+//       nodes {
+//         color
+//         id
+//         name
+//       }
+//       totalCount
+//       totalSize
+//     }
+//   }
+// `;
 
 const REPOSITORYS_QUERY_LIST_RAW_STRING = FRAMEWORK_LIST.map(item => {
   return `${item.owner.split('-')[0]}: repository(owner: "${

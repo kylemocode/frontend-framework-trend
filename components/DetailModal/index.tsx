@@ -9,6 +9,7 @@ import {
   MainAlignment,
   CrossAlignment,
 } from '@/utils/flexbox';
+import { GetRepositoryQuery } from '@/generated/graphql';
 
 const HeaderRow = Styled.div`
     width: 100%;
@@ -37,9 +38,10 @@ const CloseButton = Styled.div`
 interface IProps {
   show: boolean;
   onClose: () => void;
+  data?: GetRepositoryQuery['repository'] | null;
 }
 
-const DetailModal: FC<IProps> = ({ show, onClose }) => {
+const DetailModal: FC<IProps> = ({ show, onClose, data }) => {
   return (
     <EmptyFullScreenModal show={show}>
       <HeaderRow>
@@ -47,6 +49,7 @@ const DetailModal: FC<IProps> = ({ show, onClose }) => {
           <SVG src='/close.svg' />
         </CloseButton>
       </HeaderRow>
+      <pre>{JSON.stringify(data, undefined, 2)}</pre>
     </EmptyFullScreenModal>
   );
 };

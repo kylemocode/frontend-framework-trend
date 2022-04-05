@@ -63,8 +63,19 @@ export const FRAMEWORK_LIST: FrameworkItem[] = [
   },
 ];
 
-export const FRAMEWORKS_COLOR_MAPPER = {
+export const FRAMEWORKS_COLOR_MAPPER: Record<string, string> = {
   react: '#61dafb',
   vue: '#42b883',
   angular: '#ef0441',
+  svelte: '#ff3e00',
+  stencil: '#4c48ff',
+  lit: '#325cff',
+  alpine: '#77c1d2',
+  preact: '#673ab8',
+  stimulus: '#77e8b9',
+  'ember.js': '#ce2d1f',
+  jquery: '#0968ad',
+  backbone: '#002a41',
+  'foundation-sites': '#0f1e26',
+  'Semantic-UI': '#35bcb2',
 };

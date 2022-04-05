@@ -1,8 +1,9 @@
-import { FC, useState, useCallback } from 'react';
+import { FC, useState, useCallback, useMemo, ChangeEvent } from 'react';
 import Styled, { css } from 'styled-components';
 
 import { GetRepositoryQuery } from '@/generated/graphql';
 import FrameworkCard from '@/components/FrameworkCard';
+import SelectionInput from '@/components/SelectionInput';
 import {
   flexBox,
   Direction,
@@ -10,6 +11,8 @@ import {
   CrossAlignment,
 } from '@/utils/flexbox';
 import DetailModal from '@/components/DetailModal';
+import { SORT_BY_LIST } from '@/constants/sortBy';
+import { SortBy } from '@/constants/enums';
 
 const HomePageWrapper = Styled.div`
     min-height: 100vh;
@@ -21,11 +24,10 @@ const HomePageWrapper = Styled.div`
       mainAlign: MainAlignment.flexStart,
       crossAlign: CrossAlignment.center,
     })};
-
 `;
 
 const Title = Styled.div`
-    margin-top: 20px;
+    margin: 20px 0;
     line-height: 1.15;
     font-size: 3.5rem;
     font-weight: 700;
@@ -46,7 +48,7 @@ const StyledSpan = Styled.span`
 const CardWrapper = Styled.div`
   max-width: 100%;
   padding: 50px;
-  margin-top: 80px;
+  margin-top: 30px;
   ${flexBox({
     direction: Direction.row,
     mainAlign: MainAlignment.center,
@@ -62,13 +64,59 @@ interface IProps {
 
 const HomeContainer: FC<IProps> = ({ repoData }) => {
   const [showModal, setShowModal] = useState(false);
+  const [sortedBy, setSortedBy] = useState(SortBy.STAR_COUNT);
+  const [currentItemData, setCurrentItemData] = useState<
+    GetRepositoryQuery['repository'] | null | undefined
+  >(null);
 
-  const handleModalOpen = useCallback(() => {
+  const displayData = useMemo(() => {
+    switch (sortedBy) {
+      case SortBy.STAR_COUNT:
+        return repoData.sort((a, b) => {
+          if (b?.stargazerCount && a?.stargazerCount) {
+            return b?.stargazerCount - a?.stargazerCount;
+          }
+
+          return -1;
+        });
+      case SortBy.FORK_COUNT:
+        return repoData.sort((a, b) => {
+          if (b?.forkCount && a?.forkCount) {
+            return b?.forkCount - a?.forkCount;
+          }
+
+          return -1;
+        });
+      case SortBy.CREATED_TIME:
+        return repoData.sort((a, b) => {
+          if (b?.createdAt && a?.createdAt) {
+            return (
+              new Date(b?.createdAt).valueOf() -
+              new Date(a?.createdAt).valueOf()
+            );
+          }
+
+          return -1;
+        });
+      default:
+        return repoData;
+    }
+  }, [sortedBy]);
+
+  const handleModalOpen = useCallback((repoName: string) => {
     setShowModal(true);
+
+    const selectedData = repoData.find(item => item?.name === repoName);
+    setCurrentItemData(selectedData);
   }, []);
 
   const handleModalClose = useCallback(() => {
     setShowModal(false);
+  }, []);
+
+  const handleSelect = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
+    e.preventDefault();
+    setSortedBy(e.target.value as unknown as SortBy);
   }, []);
 
   return (
@@ -77,20 +125,34 @@ const HomeContainer: FC<IProps> = ({ repoData }) => {
         <Title>
           <StyledSpan>Frontend Framework </StyledSpan>Trend
         </Title>
+        <SelectionInput
+          title='Sorted By'
+          options={SORT_BY_LIST}
+          onSelect={handleSelect}
+        />
         <CardWrapper>
-          {repoData &&
-            repoData.map((item, idx) => {
+          {displayData &&
+            displayData.map((item, idx) => {
               return (
                 <FrameworkCard
                   key={item?.id}
-                  onCardClick={handleModalOpen}
+                  onCardClick={() => handleModalOpen(item?.name ?? '')}
                   rank={idx}
+                  repoName={item?.name ?? ''}
+                  ownerName={item?.nameWithOwner.split('/')[0] ?? ''}
+                  starCount={item?.stargazerCount ?? 0}
+                  forkCount={item?.forkCount ?? 0}
+                  createdAt={item?.createdAt ?? ''}
                 />
               );
             })}
         </CardWrapper>
       </HomePageWrapper>
-      <DetailModal show={showModal} onClose={handleModalClose} />
+      <DetailModal
+        show={showModal}
+        onClose={handleModalClose}
+        data={currentItemData}
+      />
     </>
   );
 };

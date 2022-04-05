@@ -47,6 +47,8 @@ export async function getStaticProps() {
     props: {
       repoData: dataList,
     },
+    /* Cache for one hour */
+    revalidate: 3600,
   };
 }
 
