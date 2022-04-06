@@ -1,4 +1,8 @@
-import { ThemeProvider, createGlobalStyle } from 'styled-components';
+import {
+  ThemeProvider,
+  createGlobalStyle,
+  DefaultTheme,
+} from 'styled-components';
 import { ReactNode } from 'react';
 
 import theme from '@/common/themes';
@@ -13,7 +17,7 @@ interface IProps {
 
 const DynamicTheme = ({ children }: IProps) => {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme as unknown as DefaultTheme}>
       <>
         <GlobalStyle />
         {children}
