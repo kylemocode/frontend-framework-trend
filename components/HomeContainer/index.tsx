@@ -101,14 +101,17 @@ const HomeContainer: FC<IProps> = ({ repoData }) => {
       default:
         return repoData;
     }
-  }, [sortedBy]);
+  }, [repoData, sortedBy]);
 
-  const handleModalOpen = useCallback((repoName: string) => {
-    setShowModal(true);
+  const handleModalOpen = useCallback(
+    (repoName: string) => {
+      setShowModal(true);
 
-    const selectedData = repoData.find(item => item?.name === repoName);
-    setCurrentItemData(selectedData);
-  }, []);
+      const selectedData = repoData.find(item => item?.name === repoName);
+      setCurrentItemData(selectedData);
+    },
+    [repoData]
+  );
 
   const handleModalClose = useCallback(() => {
     setShowModal(false);

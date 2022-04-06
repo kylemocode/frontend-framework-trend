@@ -1,4 +1,4 @@
-export default {
+const colors = {
   BLACK_000: 'rgba(0, 0, 0, 0)',
   BLACK_002: 'rgba(0, 0, 0, 0.02)',
   BLACK_004: 'rgba(0, 0, 0, 0.04)',
@@ -80,4 +80,8 @@ export default {
   MEDAL_FIRST: '#ecd029',
   MEDAL_SECOND: '#b8b7bb',
   MEDAL_THIRD: '#ae6a32',
+  DETAIL_PRIMARY: '#013353',
+  DETAIL_SECONDARY: '#ee837d',
 };
+
+export default colors;
