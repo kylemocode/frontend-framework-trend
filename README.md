@@ -7,7 +7,6 @@ A simple webapp that display the trends and details of modern frontend developme
 
 ![image](./assets/frontend-framework-trend.png)
 
-![image](./assets/detail.png)
 
 ## Installation
 
