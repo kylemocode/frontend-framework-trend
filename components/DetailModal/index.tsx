@@ -215,19 +215,19 @@ const DetailModal: FC<IProps> = ({ show, onClose, data }) => {
               <Description>{data.description}</Description>
               <DataWrapper>
                 <DataRow>
-                  <ItemTitle>Star Count: </ItemTitle>
+                  <ItemTitle>Star Count</ItemTitle>
                   <Content>{data.stargazerCount}</Content>
                 </DataRow>
                 <DataRow>
-                  <ItemTitle>Fork Count: </ItemTitle>
+                  <ItemTitle>Fork Count</ItemTitle>
                   <Content>{data.forkCount}</Content>
                 </DataRow>
                 <DataRow>
-                  <ItemTitle>Created Time: </ItemTitle>
+                  <ItemTitle>Created Time</ItemTitle>
                   <Content>{data.createdAt.split('T')[0]}</Content>
                 </DataRow>
                 <DataRow>
-                  <ItemTitle>Homepage Link: </ItemTitle>
+                  <ItemTitle>Homepage Link</ItemTitle>
                   <Content>
                     <a href={data.homepageUrl} target='_blank' rel='noreferrer'>
                       Link
@@ -235,15 +235,15 @@ const DetailModal: FC<IProps> = ({ show, onClose, data }) => {
                   </Content>
                 </DataRow>
                 <DataRow>
-                  <ItemTitle>License: </ItemTitle>
+                  <ItemTitle>License</ItemTitle>
                   <Content>{npmData.license ?? ''}</Content>
                 </DataRow>
                 <DataRow>
-                  <ItemTitle>Weekly Download: </ItemTitle>
+                  <ItemTitle>Weekly Download</ItemTitle>
                   <Content>{npmData.download ?? ''}</Content>
                 </DataRow>
                 <DataRow>
-                  <ItemTitle>Disk Usage: </ItemTitle>
+                  <ItemTitle>Disk Usage</ItemTitle>
                   <Content>
                     {data.diskUsage
                       ? `${Math.round(data.diskUsage / 1024)} KB`
