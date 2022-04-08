@@ -15,34 +15,39 @@ import { SORT_BY_LIST } from '@/constants/sortBy';
 import { SortBy } from '@/constants/enums';
 
 const HomePageWrapper = Styled.div`
-    min-height: 100vh;
-    width: 100vw;
-    padding: 4rem 0;
-    flex: 1;
-    ${flexBox({
-      direction: Direction.column,
-      mainAlign: MainAlignment.flexStart,
-      crossAlign: CrossAlignment.center,
-    })};
+  min-height: 100vh;
+  width: 100vw;
+  padding: 4rem 0;
+  flex: 1;
+  ${flexBox({
+    direction: Direction.column,
+    mainAlign: MainAlignment.flexStart,
+    crossAlign: CrossAlignment.center,
+  })};
 `;
 
 const Title = Styled.div`
-    margin: 20px 0;
-    line-height: 1.15;
-    font-size: 3.5rem;
-    font-weight: 700;
-    color: ${props => props.theme.colors.TITLE_SECONDARY_BLUE};
+  margin: 20px 0;
+  line-height: 1.15;
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: ${props => props.theme.colors.TITLE_SECONDARY_BLUE};
 
-    ${props =>
-      props.theme.tablet`
-        font-size: 2.5rem; 
-    `}
+  ${props =>
+    props.theme.tablet`
+      font-size: 2.5rem; 
+  `}
+
+  ${props =>
+    props.theme.mobileL`
+      font-size: 1.8rem; 
+  `}
 `;
 
 const StyledSpan = Styled.span`
-    ${props => css`
-      color: ${props.theme.colors.TITLE_BLUE};
-    `}
+  ${props => css`
+    color: ${props.theme.colors.TITLE_BLUE};
+  `}
 `;
 
 const CardWrapper = Styled.div`

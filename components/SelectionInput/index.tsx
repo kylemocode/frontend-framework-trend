@@ -14,6 +14,19 @@ const Wrapper = Styled.div`
     mainAlign: MainAlignment.flexStart,
     crossAlign: CrossAlignment.center,
   })};
+
+  ${props =>
+    props.theme.tablet`
+      ${flexBox({
+        direction: Direction.column,
+        mainAlign: MainAlignment.flexStart,
+        crossAlign: CrossAlignment.center,
+      })};
+
+      ${Title} {
+        margin-bottom: 10px;
+      }
+  `}
 `;
 
 const Title = Styled.div`

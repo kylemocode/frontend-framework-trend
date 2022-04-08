@@ -62,7 +62,11 @@ const Meta = () => {
           content={data.description}
         />
       )}
-      <meta key='og:site_name' property='og:site_name' content='Dcard' />
+      <meta
+        key='og:site_name'
+        property='og:site_name'
+        content='Frontend Framework Trend'
+      />
       {data.title && (
         <meta key='og:title' property='og:title' content={data.title} />
       )}
